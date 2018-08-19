@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>실시간 날씨</title>
+    <link rel="stylesheet" type="text/css" href="index.css">
+    <style>
+    </style>
+  </head>
+  <body>
+    <div class = "wrap">     
+           
+    </div>
+    <div class="location">
+        Seoul KR      
+      </div>
+      <div class="weather">
+        Clouds 23.7`C
+      </div>
+      <div class="image">      
+        <img id="wimg" src="sources/04d.png">
+      </div>
+
+
+    <script>
+      const API_KEY = "c1e3e33fb93a59e17529b7726b252d27"; //API KEY
+
+      var lat = 37.8746177, long = 127.73438823;  //기본 위경도 춘천시 (gps가 작동 안할 때))
+      
+      var city_name;
+      var city_country;
+      var temperature;
+      var wname;
+      var wnamecode;
+
+      _getWeather= (lat, long) => {
+        fetch(`http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&units=metric&APPID=${API_KEY}`)
+        .then(response => response.json())
+        .then(json=> {
+          console.log(json);
+          temperature = json.main.temp;
+          city_name = json.name;
+          city_country = json.sys.country;
+          wname = json.weather[0].main;
+          wnamecode = json.weather[0].icon;
+          var loc = document.getElementsByClassName("location");
+          loc[0].innerHTML = city_name + ' ' + city_country;
+          var wea = document.getElementsByClassName("weather");
+          wea[0].innerHTML = wname + ' ' + temperature + '`C';
+          var wimg = document.getElementById("wimg");
+          wimg.src = `sources/${wnamecode}.png`;
+        })
+      }
+
+      function getLocation() {
+        if (navigator.geolocation) { // GPS를 지원하면
+          navigator.geolocation.getCurrentPosition(function(position) {
+//            alert(position.coords.latitude + ' ' + position.coords.longitude);
+            lat = position.coords.latitude;
+            long = position.coords.longitude;
+            this._getWeather(lat, long);
+          }, function(error) {
+            console.error(error);
+          }, {
+              enableHighAccuracy: false,
+              maximumAge: 0,
+              timeout: Infinity
+          });
+        } else {
+          alert('GPS를 지원하지 않습니다');
+          this._getWeather(lat, long);
+        }
+      }
+      
+      
+      
+
+      getLocation();
+
+     
+      
+      
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,21 @@
+body {
+  display: flex;  
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.location {  
+  font-family: sans-serif;
+  font-size: x-large;
+  font-weight: bold;
+  margin:2%;
+}
+.weather {
+  font-family: sans-serif;
+  font-size: xx-large;
+  font-weight: bold;
+  margin:2%;  
+}
+.image {
+  margin:2%;
+}
