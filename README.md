@@ -1,0 +1,2 @@
+# SWA
+Simple Weather App
