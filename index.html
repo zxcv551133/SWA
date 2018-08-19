@@ -36,7 +36,7 @@
       var wnamecode;
 
       _getWeather= (lat, long) => {
-        var url = `http://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&units=metric&APPID=${API_KEY}`
+        var url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&units=metric&APPID=${API_KEY}`
         fetch(url)
         .then(response => response.json())
         .then(json=> {
